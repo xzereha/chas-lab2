@@ -2,33 +2,30 @@ package com.example;
 
 import org.junit.jupiter.api.Test;
 import java.util.Scanner;
+import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
     @Test
     void addCandidateFlow_invalidName_thenValid_shouldAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        // Try blank name, then valid name
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
         String input = "1\n \nAnna\n30\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
-        Candidate c = repo.getAllCandidates().get(0);
-        assertEquals("Anna", c.getName());
+        Mockito.verify(repo).addCandidate(Mockito.argThat(c -> c.getName().equals("Anna") && c.getAge() == 30
+                && c.getIndustry().equals("IT") && c.getYearsOfExperience() == 5));
     }
 
     @Test
     void addCandidateFlow_invalidAge_thenValid_shouldAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        // Try invalid age, then valid age
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
         String input = "1\nAnna\n-1\n30\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
-        Candidate c = repo.getAllCandidates().get(0);
-        assertEquals(30, c.getAge());
+        Mockito.verify(repo).addCandidate(Mockito.argThat(c -> c.getName().equals("Anna") && c.getAge() == 30
+                && c.getIndustry().equals("IT") && c.getYearsOfExperience() == 5));
     }
 
     @Test
@@ -131,72 +128,64 @@ class MenuTest {
 
     @Test
     void addCandidateFlow_blankName_shouldNotAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        String input = "1\n \n30\nIT\n5\n5\n"; // blank name
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
+        String input = "1\n \n30\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(0, repo.getAllCandidates().size());
+        Mockito.verify(repo, Mockito.never()).addCandidate(Mockito.any());
     }
 
     @Test
     void addCandidateFlow_negativeAge_shouldNotAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        String input = "1\nAnna\n-1\nIT\n5\n5\n"; // negative age
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
+        String input = "1\nAnna\n-1\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(0, repo.getAllCandidates().size());
+        Mockito.verify(repo, Mockito.never()).addCandidate(Mockito.any());
     }
 
     @Test
     void addCandidateFlow_blankIndustry_shouldNotAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        // blank industry, then valid industry
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
         String input = "1\nAnna\n30\n \nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
-        Candidate c = repo.getAllCandidates().get(0);
-        assertEquals("Anna", c.getName());
-        assertEquals("IT", c.getIndustry());
+        Mockito.verify(repo)
+                .addCandidate(Mockito.argThat(c -> c.getName().equals("Anna") && c.getIndustry().equals("IT")));
     }
 
     @Test
     void addCandidateFlow_negativeExperience_shouldNotAddCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        // negative experience, then valid experience
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
         String input = "1\nAnna\n30\nIT\n-1\n5\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
-        Candidate c = repo.getAllCandidates().get(0);
-        assertEquals("Anna", c.getName());
-        assertEquals(5, c.getYearsOfExperience());
+        Mockito.verify(repo)
+                .addCandidate(Mockito.argThat(c -> c.getName().equals("Anna") && c.getYearsOfExperience() == 5));
     }
 
     @Test
     void removeCandidateFlow_blankName_shouldNotRemoveCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        repo.addCandidate(new Candidate("Anna", 30, "IT", 5));
-        String input = "2\n \n5\n"; // blank name
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
+        String input = "2\n \n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
+        Mockito.verify(repo, Mockito.never()).removeCandidate(Mockito.any());
     }
 
     @Test
     void removeCandidateFlow_nullName_shouldNotRemoveCandidate() {
-        CandidateRepository repo = new CandidateRepository();
-        repo.addCandidate(new Candidate("Anna", 30, "IT", 5));
-        String input = "2\n\n5\n"; // null/empty name
+        CandidateRepository repo = Mockito.mock(CandidateRepository.class);
+        String input = "2\n\n5\n";
         Scanner scanner = new Scanner(input);
         Menu menu = new Menu(repo, scanner);
         menu.run();
-        assertEquals(1, repo.getAllCandidates().size());
+        Mockito.verify(repo, Mockito.never()).removeCandidate(Mockito.any());
     }
 
     @Test

@@ -42,8 +42,10 @@ public class Menu {
     private void removeCandidateFlow() {
         System.out.print("Ange namn på kandidat att ta bort: ");
         String name = safeNextLine();
-        if (name == null)
+        if (name == null || name.trim().isEmpty()) {
+            logger.warn("Ogiltigt namn för borttagning via meny: '{}'.", name);
             return;
+        }
         boolean removed = repository.removeCandidate(name);
         if (removed) {
             logger.info("Kandidat borttagen via meny: {}", name);
