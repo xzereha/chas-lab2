@@ -7,6 +7,9 @@ public class ExperienceFilter implements CandidateFilter {
     private final int minYears;
 
     public ExperienceFilter(int minYears) {
+        if (minYears < 0) {
+            throw new IllegalArgumentException("Years of experience for filtering must not be negative");
+        }
         this.minYears = minYears;
     }
 

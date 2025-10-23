@@ -9,7 +9,10 @@ public class NameFilter implements CandidateFilter {
     private final String name;
 
     public NameFilter(String name) {
-        this.name = name != null ? name.trim() : "";
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name for filtering must not be null or empty");
+        }
+        this.name = name;
     }
 
     @Override

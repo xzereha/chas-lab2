@@ -4,6 +4,7 @@ import com.example.commands.Command;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -40,13 +41,18 @@ public class SubMenu {
             System.out.println(entry.getKey() + ": " + entry.getValue().menuText());
         }
         System.out.print("Välj ett alternativ: ");
-        String choice = scanner.nextLine();
-        Command cmd = options.get(choice);
-        if (cmd != null) {
-            return cmd.execute();
-        } else {
-            System.out.println("Ogiltigt val, försök igen.");
-            return true;
+        try {
+            String choice = scanner.nextLine();
+            Command cmd = options.get(choice);
+            if (cmd != null) {
+                return cmd.execute();
+            } else {
+                System.out.println("Ogiltigt val, försök igen.");
+                return true;
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Inmatning avbröts.");
+            return false;
         }
     }
 }

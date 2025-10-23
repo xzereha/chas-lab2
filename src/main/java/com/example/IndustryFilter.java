@@ -7,6 +7,9 @@ public class IndustryFilter implements CandidateFilter {
     private final String industry;
 
     public IndustryFilter(String industry) {
+        if (industry == null || industry.trim().isEmpty()) {
+            throw new IllegalArgumentException("Industry for filtering must not be null or empty");
+        }
         this.industry = industry;
     }
 

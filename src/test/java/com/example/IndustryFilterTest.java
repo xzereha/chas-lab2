@@ -17,4 +17,16 @@ public class IndustryFilterTest {
         assertTrue(result.contains(c1));
         assertTrue(result.contains(c3));
     }
+
+    @Test
+    void constructor_nullIndustry_shouldThrow() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> new IndustryFilter(null));
+        assertEquals("Industry for filtering must not be null or empty", ex.getMessage());
+    }
+
+    @Test
+    void constructor_emptyIndustry_shouldThrow() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> new IndustryFilter("   "));
+        assertEquals("Industry for filtering must not be null or empty", ex.getMessage());
+    }
 }

@@ -17,4 +17,10 @@ public class ExperienceFilterTest {
         assertTrue(result.contains(c1));
         assertTrue(result.contains(c2));
     }
+
+    @Test
+    void constructor_negativeYears_shouldThrow() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> new ExperienceFilter(-1));
+        assertEquals("Years of experience for filtering must not be negative", ex.getMessage());
+    }
 }

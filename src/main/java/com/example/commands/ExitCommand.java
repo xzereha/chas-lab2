@@ -8,6 +8,6 @@ public class ExitCommand implements Command {
 
     @Override
     public String menuText() {
-        return "5. Avsluta";
+        return "Avsluta";
     }
 }

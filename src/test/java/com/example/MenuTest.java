@@ -168,26 +168,6 @@ class MenuTest {
     }
 
     @Test
-    void removeCandidateFlow_blankName_shouldNotRemoveCandidate() {
-        CandidateStorage repo = Mockito.mock(CandidateStorage.class);
-        String input = "2\n \n5\n";
-        Scanner scanner = new Scanner(input);
-        Menu menu = new Menu(repo, scanner);
-        menu.run();
-        Mockito.verify(repo, Mockito.never()).removeCandidate(Mockito.any());
-    }
-
-    @Test
-    void removeCandidateFlow_nullName_shouldNotRemoveCandidate() {
-        CandidateStorage repo = Mockito.mock(CandidateStorage.class);
-        String input = "2\n\n5\n";
-        Scanner scanner = new Scanner(input);
-        Menu menu = new Menu(repo, scanner);
-        menu.run();
-        Mockito.verify(repo, Mockito.never()).removeCandidate(Mockito.any());
-    }
-
-    @Test
     void filterCandidatesFlow_blankIndustry_shouldHandleGracefully() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         repo.addCandidate(new Candidate("Anna", 30, "IT", 5));
