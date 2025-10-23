@@ -39,7 +39,7 @@ mvn test
 
 ```sh
 mvn clean package
-java -jar target/inlm2-1.0-SNAPSHOT.jar
+java -jar target/Kandidathanteringssystem-1.0-SNAPSHOT.jar
 ```
 
 ## Designval
