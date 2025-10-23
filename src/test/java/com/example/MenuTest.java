@@ -8,21 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
     @Test
-    void menuConstructor_nullStorage_shouldThrow() {
+    void menuConstructor_nullStorage_throwsException() {
         Scanner scanner = new Scanner("");
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(null, scanner));
         assertEquals("CandidateStorage must not be null", ex.getMessage());
     }
 
     @Test
-    void menuConstructor_nullScanner_shouldThrow() {
+    void menuConstructor_nullScanner_throwsException() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }
 
     @Test
-    void addCandidateFlow_invalidName_thenValid_shouldAddCandidate() {
+    void addCandidateFlow_invalidNameThenValid_addsCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         String input = "1\n \nAnna\n30\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
@@ -33,7 +33,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidAge_thenValid_shouldAddCandidate() {
+    void addCandidateFlow_invalidAgeThenValid_addsCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         String input = "1\nAnna\n-1\n30\nIT\n5\n5\n";
         Scanner scanner = new Scanner(input);
@@ -44,7 +44,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidIndustry_thenValid_shouldAddCandidate() {
+    void addCandidateFlow_invalidIndustryThenValid_addsCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try blank industry, then valid industry
         String input = "1\nAnna\n30\n \nIT\n5\n5\n";
@@ -56,7 +56,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidExperience_thenValid_shouldAddCandidate() {
+    void addCandidateFlow_invalidExperienceThenValid_addsCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try invalid experience, then valid experience
         String input = "1\nAnna\n30\nIT\n-1\n5\n5\n";
@@ -68,7 +68,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidName_shouldNotProceed() {
+    void addCandidateFlow_invalidName_doesNotAddCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try to add candidate with blank name, then valid age/industry/experience
         String input = "1\n \n30\nIT\n5\n5\n";
@@ -79,7 +79,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidAge_shouldNotProceed() {
+    void addCandidateFlow_invalidAge_doesNotAddCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try to add candidate with valid name, then invalid age, then valid
         // industry/experience
@@ -91,7 +91,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidIndustry_shouldNotProceed() {
+    void addCandidateFlow_invalidIndustry_doesNotAddCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try to add candidate with valid name/age, then blank industry, then input
         // ends (simulates user exit)
@@ -103,7 +103,7 @@ class MenuTest {
     }
 
     @Test
-    void addCandidateFlow_invalidExperience_shouldNotProceed() {
+    void addCandidateFlow_invalidExperience_doesNotAddCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         // Try to add candidate with valid name/age/industry, then invalid experience,
         // then input ends (simulates user exit)
@@ -115,7 +115,7 @@ class MenuTest {
     }
 
     @Test
-    void mainMenu_nullInput_shouldExitGracefully() {
+    void mainMenu_nullInput_exitsGracefully() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner(""); // no input at all
         Menu menu = new Menu(repo, scanner);

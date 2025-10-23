@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilterByExperienceCommandTest {
     @Test
-    void execute_shouldFilterByExperience() {
+    void execute_validExperience_filtersCandidates() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         List<Candidate> candidates = Arrays.asList(
                 new Candidate("Anna", 30, "IT", 5),
@@ -26,7 +26,7 @@ class FilterByExperienceCommandTest {
     }
 
     @Test
-    void execute_negativeExperience_shouldRepromptOrReturnFalse() {
+    void execute_negativeExperience_repomptAndFilterCandidates() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner("-1\n5\n");
@@ -37,7 +37,7 @@ class FilterByExperienceCommandTest {
     }
 
     @Test
-    void execute_streamEnds_shouldReturnFalse() {
+    void execute_streamEnds_returnsFalse() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner(""); // No input
         FilterByExperienceCommand cmd = new FilterByExperienceCommand(storage, scanner);
@@ -47,7 +47,7 @@ class FilterByExperienceCommandTest {
     }
 
     @Test
-    void execute_nonIntegerInput_shouldRepromptOrReturnFalse() {
+    void execute_nonIntegerInput_repomptAndFilterCandidates() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner("abc\n10\n");
@@ -58,14 +58,14 @@ class FilterByExperienceCommandTest {
     }
 
     @Test
-    void constructor_nullStorage_shouldThrow() {
+    void constructor_nullStorage_throwsException() {
         Scanner scanner = new Scanner("");
         Exception ex = assertThrows(NullPointerException.class, () -> new FilterByExperienceCommand(null, scanner));
         assertEquals("CandidateStorage must not be null", ex.getMessage());
     }
 
     @Test
-    void constructor_nullScanner_shouldThrow() {
+    void constructor_nullScanner_throwsException() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new FilterByExperienceCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());

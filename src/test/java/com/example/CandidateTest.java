@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CandidateTest {
     @Test
-    void constructor_validArguments_shouldCreateCandidate() {
+    void constructor_validArguments_createsCandidate() {
         Candidate c = new Candidate("Anna", 30, "IT", 5);
         assertEquals("Anna", c.getName());
         assertEquals(30, c.getAge());
@@ -14,37 +14,37 @@ class CandidateTest {
     }
 
     @Test
-    void constructor_nullName_shouldThrow() {
+    void constructor_nullName_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate(null, 30, "IT", 5));
     }
 
     @Test
-    void constructor_blankName_shouldThrow() {
+    void constructor_blankName_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate(" ", 30, "IT", 5));
     }
 
     @Test
-    void constructor_negativeAge_shouldThrow() {
+    void constructor_negativeAge_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate("Anna", -1, "IT", 5));
     }
 
     @Test
-    void constructor_nullIndustry_shouldThrow() {
+    void constructor_nullIndustry_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate("Anna", 30, null, 5));
     }
 
     @Test
-    void constructor_blankIndustry_shouldThrow() {
+    void constructor_blankIndustry_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate("Anna", 30, " ", 5));
     }
 
     @Test
-    void constructor_negativeExperience_shouldThrow() {
+    void constructor_negativeExperience_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new Candidate("Anna", 30, "IT", -1));
     }
 
     @Test
-    void toString_shouldFormatCorrectly() {
+    void toString_validCandidate_formatsCorrectly() {
         Candidate c = new Candidate("Anna", 30, "IT", 5);
         assertTrue(c.toString().contains("Anna"));
         assertTrue(c.toString().contains("30"));

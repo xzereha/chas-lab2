@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SubMenuTest {
     @Test
-    void showAndHandle_shouldExecuteCorrectCommand() {
+    void showAndHandle_validInput_executesCorrectCommand() {
         Command cmd1 = Mockito.mock(Command.class);
         Command cmd2 = Mockito.mock(Command.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
@@ -31,7 +31,7 @@ class SubMenuTest {
     }
 
     @Test
-    void showAndHandle_shouldExitGracefullyIfStreamEnds() {
+    void showAndHandle_streamEnds_exitsGracefully() {
         Command cmd1 = Mockito.mock(Command.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
         Map<String, Command> options = new LinkedHashMap<>();
@@ -45,7 +45,7 @@ class SubMenuTest {
     }
 
     @Test
-    void showAndHandle_shouldRespectCommandReturnFalse() {
+    void showAndHandle_commandReturnsFalse_exits() {
         Command cmd1 = Mockito.mock(Command.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
         Mockito.when(cmd1.execute()).thenReturn(false);

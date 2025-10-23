@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IndustryFilterTest {
     @Test
-    void filter_shouldReturnMatchingIndustry() {
+    void filter_validIndustry_returnsMatchingCandidates() {
         Candidate c1 = new Candidate("Anna", 30, "IT", 5);
         Candidate c2 = new Candidate("Bo", 40, "Ekonomi", 10);
         Candidate c3 = new Candidate("Cecilia", 25, "IT", 2);
@@ -19,13 +19,13 @@ public class IndustryFilterTest {
     }
 
     @Test
-    void constructor_nullIndustry_shouldThrow() {
+    void constructor_nullIndustry_throwsException() {
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new IndustryFilter(null));
         assertEquals("Industry for filtering must not be null or empty", ex.getMessage());
     }
 
     @Test
-    void constructor_emptyIndustry_shouldThrow() {
+    void constructor_emptyIndustry_throwsException() {
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new IndustryFilter("   "));
         assertEquals("Industry for filtering must not be null or empty", ex.getMessage());
     }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShowCandidatesCommandTest {
     @Test
-    void execute_shouldShowCandidates() {
+    void execute_candidatesExist_showsCandidates() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         List<Candidate> candidates = Arrays.asList(
                 new Candidate("Anna", 30, "IT", 5),
@@ -26,7 +26,7 @@ class ShowCandidatesCommandTest {
     }
 
     @Test
-    void execute_streamEnds_shouldReturnTrue() {
+    void execute_streamEnds_returnsTrue() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner(""); // No input needed
@@ -37,14 +37,14 @@ class ShowCandidatesCommandTest {
     }
 
     @Test
-    void constructor_nullStorage_shouldThrow() {
+    void constructor_nullStorage_throwsException() {
         Scanner scanner = new Scanner("");
         Exception ex = assertThrows(NullPointerException.class, () -> new ShowCandidatesCommand(null, scanner));
         assertEquals("CandidateStorage must not be null", ex.getMessage());
     }
 
     @Test
-    void constructor_nullScanner_shouldThrow() {
+    void constructor_nullScanner_throwsException() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new ShowCandidatesCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());

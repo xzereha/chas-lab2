@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RemoveCandidateCommandTest {
     @Test
-    void execute_shouldRemoveCandidate() {
+    void execute_validName_removesCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n");
         RemoveCandidateCommand cmd = new RemoveCandidateCommand(storage, scanner);
@@ -19,7 +19,7 @@ class RemoveCandidateCommandTest {
     }
 
     @Test
-    void execute_blankName_shouldRepromptOrReturnFalse() {
+    void execute_blankName_repomptAndRemoveCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Mockito.when(storage.removeCandidate("Anna")).thenReturn(true);
         Scanner scanner = new Scanner("\nAnna\n");
@@ -30,7 +30,7 @@ class RemoveCandidateCommandTest {
     }
 
     @Test
-    void execute_streamEnds_shouldReturnFalse() {
+    void execute_streamEnds_returnsFalse() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner(""); // No input
         RemoveCandidateCommand cmd = new RemoveCandidateCommand(storage, scanner);
@@ -40,14 +40,14 @@ class RemoveCandidateCommandTest {
     }
 
     @Test
-    void constructor_nullStorage_shouldThrow() {
+    void constructor_nullStorage_throwsException() {
         Scanner scanner = new Scanner("");
         Exception ex = assertThrows(NullPointerException.class, () -> new RemoveCandidateCommand(null, scanner));
         assertEquals("CandidateStorage must not be null", ex.getMessage());
     }
 
     @Test
-    void constructor_nullScanner_shouldThrow() {
+    void constructor_nullScanner_throwsException() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new RemoveCandidateCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());

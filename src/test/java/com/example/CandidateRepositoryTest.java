@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CandidateRepositoryTest {
     @Test
-    void addCandidate_shouldIncreaseSize() {
+    void addCandidate_validCandidate_increasesSize() {
         CandidateRepository repo = new CandidateRepository();
         Candidate candidate = Mockito.mock(Candidate.class);
         repo.addCandidate(candidate);
@@ -14,14 +14,14 @@ public class CandidateRepositoryTest {
     }
 
     @Test
-    void addCandidate_nullCandidate_shouldNotAdd() {
+    void addCandidate_nullCandidate_doesNotAdd() {
         CandidateRepository repo = new CandidateRepository();
         repo.addCandidate(null);
         assertEquals(0, repo.getAllCandidates().size());
     }
 
     @Test
-    void removeCandidate_shouldRemoveByName() {
+    void removeCandidate_validName_removesCandidate() {
         CandidateRepository repo = new CandidateRepository();
         Candidate candidate = new Candidate("Anna", 30, "IT", 5);
         repo.addCandidate(candidate);
@@ -31,26 +31,26 @@ public class CandidateRepositoryTest {
     }
 
     @Test
-    void removeCandidate_shouldReturnFalseIfNotFound() {
+    void removeCandidate_notFound_returnsFalse() {
         CandidateRepository repo = new CandidateRepository();
         boolean removed = repo.removeCandidate("Nonexistent");
         assertFalse(removed);
     }
 
     @Test
-    void removeCandidate_nullName_shouldReturnFalse() {
+    void removeCandidate_nullName_returnsFalse() {
         CandidateRepository repo = new CandidateRepository();
         assertFalse(repo.removeCandidate(null));
     }
 
     @Test
-    void removeCandidate_blankName_shouldReturnFalse() {
+    void removeCandidate_blankName_returnsFalse() {
         CandidateRepository repo = new CandidateRepository();
         assertFalse(repo.removeCandidate("   "));
     }
 
     @Test
-    void removeCandidate_notFound_shouldReturnFalse() {
+    void removeCandidate_nameNotFound_returnsFalse() {
         CandidateRepository repo = new CandidateRepository();
         repo.addCandidate(new Candidate("Anna", 30, "IT", 5));
         assertFalse(repo.removeCandidate("Bo"));

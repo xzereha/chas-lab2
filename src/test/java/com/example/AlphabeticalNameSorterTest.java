@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AlphabeticalNameSorterTest {
     @Test
-    void filter_shouldSortAlphabetically() {
+    void filter_unsortedList_returnsAlphabeticallySorted() {
         Candidate c1 = new Candidate("Bo", 40, "Ekonomi", 10);
         Candidate c2 = new Candidate("Anna", 30, "IT", 5);
         Candidate c3 = new Candidate("Cecilia", 25, "IT", 2);
@@ -17,14 +17,14 @@ class AlphabeticalNameSorterTest {
     }
 
     @Test
-    void filter_shouldHandleEmptyList() {
+    void filter_emptyList_returnsEmptyList() {
         AlphabeticalNameSorter sorter = new AlphabeticalNameSorter();
         List<Candidate> result = sorter.filter(List.of());
         assertTrue(result.isEmpty());
     }
 
     @Test
-    void filter_shouldBeStableForSameName() {
+    void filter_sameName_isStable() {
         Candidate c1 = new Candidate("Anna", 30, "IT", 5);
         Candidate c2 = new Candidate("Anna", 25, "Ekonomi", 2);
         List<Candidate> candidates = List.of(c1, c2);

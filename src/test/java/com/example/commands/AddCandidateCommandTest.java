@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddCandidateCommandTest {
     @Test
-    void execute_nonIntegerExperience_shouldRepromptAndSucceed() {
+    void execute_nonIntegerExperience_repomptAndAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         // Name, age, industry provided, then non-integer for experience, then valid
         // integer
@@ -21,7 +21,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_streamEndsWhenPromptingForAge_shouldReturnFalse() {
+    void execute_streamEndsWhenPromptingForAge_returnsFalse() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         // Name is provided, but stream ends before age
         Scanner scanner = new Scanner("Anna\n");
@@ -32,7 +32,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_streamEndsWhenPromptingForExperience_shouldReturnFalse() {
+    void execute_streamEndsWhenPromptingForExperience_returnsFalse() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         // Name, age, industry provided, but stream ends before experience
         Scanner scanner = new Scanner("Anna\n30\nIT\n");
@@ -43,7 +43,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_shouldAddCandidate() {
+    void execute_validInput_addsCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n30\nIT\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -54,7 +54,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_blankName_shouldRepromptOrReturnFalse() {
+    void execute_blankName_repomptAndAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("\nAnna\n30\nIT\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -64,7 +64,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_negativeAge_shouldRepromptOrReturnFalse() {
+    void execute_negativeAge_repomptAndAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n-1\n30\nIT\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -74,7 +74,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_blankIndustry_shouldRepromptOrReturnFalse() {
+    void execute_blankIndustry_repomptAndAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n30\n\nIT\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -84,7 +84,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_negativeExperience_shouldRepromptOrReturnFalse() {
+    void execute_negativeExperience_repomptAndAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n30\nIT\n-1\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -94,7 +94,7 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void execute_streamEnds_shouldReturnFalse() {
+    void execute_streamEnds_returnsFalse() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner(""); // No input
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
@@ -104,14 +104,14 @@ class AddCandidateCommandTest {
     }
 
     @Test
-    void constructor_nullStorage_shouldThrow() {
+    void constructor_nullStorage_throwsException() {
         Scanner scanner = new Scanner("");
         Exception ex = assertThrows(NullPointerException.class, () -> new AddCandidateCommand(null, scanner));
         assertEquals("CandidateStorage must not be null", ex.getMessage());
     }
 
     @Test
-    void constructor_nullScanner_shouldThrow() {
+    void constructor_nullScanner_throwsException() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new AddCandidateCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
