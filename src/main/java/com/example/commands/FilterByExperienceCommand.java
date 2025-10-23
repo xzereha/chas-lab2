@@ -6,15 +6,39 @@ import java.util.Scanner;
 import com.example.CandidateStorage;
 import com.example.ExperienceFilter;
 
+/**
+ * Command to filter candidates by years of experience.
+ */
 public class FilterByExperienceCommand implements Command {
     private final CandidateStorage storage;
     private final Scanner scanner;
 
+    /**
+     * Constructs a FilterByExperienceCommand.
+     * 
+     * @param storage CandidateStorage to retrieve candidates from. Must not be
+     *                null.
+     * @param scanner Scanner for user input. Must not be null.
+     * @throws NullPointerException if storage or scanner is null
+     */
     public FilterByExperienceCommand(CandidateStorage storage, Scanner scanner) {
+        if (storage == null)
+            throw new NullPointerException("CandidateStorage must not be null");
+        if (scanner == null)
+            throw new NullPointerException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
     }
 
+    /**
+     * Executes the command to filter candidates by experience. Prompts for years,
+     * reprompts if invalid. Returns false if input stream ends.
+     * 
+     * @return true if menu should continue, false if input stream ends
+     * @throws IllegalArgumentException if years is negative
+     * @throws RuntimeException         if an unexpected error occurs during
+     *                                  filtering
+     */
     @Override
     public boolean execute() {
         System.out.println("Minsta erfarenhet i år: ");
@@ -46,6 +70,11 @@ public class FilterByExperienceCommand implements Command {
         return true;
     }
 
+    /**
+     * Returns the menu text for this command.
+     * 
+     * @return menu text string
+     */
     @Override
     public String menuText() {
         return "Filtrera på erfarenhet";

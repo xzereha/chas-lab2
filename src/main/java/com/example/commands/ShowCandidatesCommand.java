@@ -1,26 +1,44 @@
 package com.example.commands;
 
+import com.example.CandidateStorage;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.example.CandidateStorage;
-
+/**
+ * Command to display all candidates.
+ */
 public class ShowCandidatesCommand implements Command {
-    private static final Logger logger = LoggerFactory.getLogger(ShowCandidatesCommand.class);
     private final CandidateStorage storage;
     private final Scanner scanner;
 
+    /**
+     * Constructs a ShowCandidatesCommand.
+     * 
+     * @param storage CandidateStorage to retrieve candidates from. Must not be
+     *                null.
+     * @param scanner Scanner for user input. Must not be null.
+     * @throws NullPointerException if storage or scanner is null
+     */
     public ShowCandidatesCommand(CandidateStorage storage, Scanner scanner) {
+        if (storage == null)
+            throw new NullPointerException("CandidateStorage must not be null");
+        if (scanner == null)
+            throw new NullPointerException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
     }
 
+    /**
+     * Executes the command to display all candidates.
+     * Prints each candidate to standard output. If no candidates exist, prints a
+     * message.
+     * 
+     * @return true (always continues menu loop)
+     * @throws RuntimeException if an unexpected error occurs during candidate
+     *                          retrieval
+     */
     @Override
     public boolean execute() {
         var candidates = storage.getAllCandidates();
-        logger.info("Visar {} kandidater", candidates.size());
         if (candidates.isEmpty()) {
             System.out.println("Inga kandidater finns.");
         } else {
@@ -29,6 +47,11 @@ public class ShowCandidatesCommand implements Command {
         return true;
     }
 
+    /**
+     * Returns the menu text for this command.
+     * 
+     * @return menu text string
+     */
     @Override
     public String menuText() {
         return "Visa kandidater";

@@ -7,16 +7,37 @@ import org.slf4j.LoggerFactory;
 
 import com.example.CandidateStorage;
 
+/**
+ * Command to remove a candidate by name.
+ */
 public class RemoveCandidateCommand implements Command {
     private static final Logger logger = LoggerFactory.getLogger(RemoveCandidateCommand.class);
     private final CandidateStorage storage;
     private final Scanner scanner;
 
+    /**
+     * Constructs a RemoveCandidateCommand.
+     * 
+     * @param storage CandidateStorage to remove candidate from. Must not be null.
+     * @param scanner Scanner for user input. Must not be null.
+     * @throws NullPointerException if storage or scanner is null
+     */
     public RemoveCandidateCommand(CandidateStorage storage, Scanner scanner) {
+        if (storage == null)
+            throw new NullPointerException("CandidateStorage must not be null");
+        if (scanner == null)
+            throw new NullPointerException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
     }
 
+    /**
+     * Executes the command to remove a candidate by name.
+     * Prompts for name, reprompts if blank. Returns false if input stream ends.
+     * 
+     * @return true if menu should continue, false if input stream ends
+     * @throws RuntimeException if an unexpected error occurs during removal
+     */
     @Override
     public boolean execute() {
         System.out.print("Ange namn på kandidat att ta bort: ");
@@ -45,6 +66,11 @@ public class RemoveCandidateCommand implements Command {
         return true;
     }
 
+    /**
+     * Returns the menu text for this command.
+     * 
+     * @return menu text string
+     */
     @Override
     public String menuText() {
         return "Ta bort kandidat";

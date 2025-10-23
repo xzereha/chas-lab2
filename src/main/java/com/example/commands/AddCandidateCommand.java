@@ -6,15 +6,38 @@ import java.util.Scanner;
 import com.example.Candidate;
 import com.example.CandidateStorage;
 
+/**
+ * Command to add a candidate.
+ */
 public class AddCandidateCommand implements Command {
     private final CandidateStorage storage;
     private final Scanner scanner;
 
+    /**
+     * Constructs an AddCandidateCommand.
+     * 
+     * @param storage CandidateStorage to add candidate to. Must not be null.
+     * @param scanner Scanner for user input. Must not be null.
+     * @throws NullPointerException if storage or scanner is null
+     */
     public AddCandidateCommand(CandidateStorage storage, Scanner scanner) {
+        if (storage == null)
+            throw new NullPointerException("CandidateStorage must not be null");
+        if (scanner == null)
+            throw new NullPointerException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
     }
 
+    /**
+     * Executes the command to add a candidate. Prompts for all candidate fields,
+     * reprompts if invalid. Returns false if input stream ends.
+     * 
+     * @return true if menu should continue, false if input stream ends
+     * @throws IllegalArgumentException if candidate fields are invalid
+     * @throws RuntimeException         if an unexpected error occurs during
+     *                                  addition
+     */
     @Override
     public boolean execute() {
         Optional<String> nameOpt = promptForName();
@@ -35,6 +58,11 @@ public class AddCandidateCommand implements Command {
         return true;
     }
 
+    /**
+     * Returns the menu text for this command.
+     * 
+     * @return menu text string
+     */
     @Override
     public String menuText() {
         return "Lägg till kandidat";
@@ -42,6 +70,8 @@ public class AddCandidateCommand implements Command {
 
     /**
      * Reads next line from scanner, returns null if no line is available.
+     * 
+     * @return next line as String, or null if input stream ends
      */
     private String safeNextLine() {
         try {
@@ -52,7 +82,10 @@ public class AddCandidateCommand implements Command {
     }
 
     /**
-     * Reads next line from scanner, returns null if no line is available.
+     * Prompts for candidate name, reprompts if blank. Returns empty if input stream
+     * ends.
+     * 
+     * @return Optional containing name, or empty if input stream ends
      */
     private Optional<String> promptForName() {
         while (true) {
@@ -68,6 +101,13 @@ public class AddCandidateCommand implements Command {
         }
     }
 
+    /**
+     * Prompts for candidate age, reprompts if invalid. Returns empty if input
+     * stream
+     * ends.
+     * 
+     * @return Optional containing age, or empty if input stream ends
+     */
     private Optional<Integer> promptForAge() {
         while (true) {
             System.out.print("Ålder: ");
@@ -87,6 +127,12 @@ public class AddCandidateCommand implements Command {
         }
     }
 
+    /**
+     * Prompts for candidate industry, reprompts if blank. Returns empty if input
+     * stream ends.
+     * 
+     * @return Optional containing industry, or empty if input stream ends
+     */
     private Optional<String> promptForIndustry() {
         while (true) {
             System.out.print("Bransch: ");
@@ -101,6 +147,13 @@ public class AddCandidateCommand implements Command {
         }
     }
 
+    /**
+     * Prompts for candidate years of experience, reprompts if invalid. Returns
+     * empty
+     * if input stream ends.
+     * 
+     * @return Optional containing years, or empty if input stream ends
+     */
     private Optional<Integer> promptForExperience() {
         while (true) {
             System.out.print("Antal år erfarenhet: ");
