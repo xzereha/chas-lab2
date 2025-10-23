@@ -9,6 +9,40 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddCandidateCommandTest {
     @Test
+    void execute_nonIntegerExperience_shouldRepromptAndSucceed() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        // Name, age, industry provided, then non-integer for experience, then valid
+        // integer
+        Scanner scanner = new Scanner("Anna\n30\nIT\nabc\n5\n");
+        AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
+        boolean result = cmd.execute();
+        assertTrue(result); // Should succeed after reprompt
+        Mockito.verify(storage).addCandidate(Mockito.argThat(c -> c.getYearsOfExperience() == 5));
+    }
+
+    @Test
+    void execute_streamEndsWhenPromptingForAge_shouldReturnFalse() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        // Name is provided, but stream ends before age
+        Scanner scanner = new Scanner("Anna\n");
+        AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
+        boolean result = cmd.execute();
+        assertFalse(result);
+        Mockito.verify(storage, Mockito.never()).addCandidate(Mockito.any());
+    }
+
+    @Test
+    void execute_streamEndsWhenPromptingForExperience_shouldReturnFalse() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        // Name, age, industry provided, but stream ends before experience
+        Scanner scanner = new Scanner("Anna\n30\nIT\n");
+        AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
+        boolean result = cmd.execute();
+        assertFalse(result);
+        Mockito.verify(storage, Mockito.never()).addCandidate(Mockito.any());
+    }
+
+    @Test
     void execute_shouldAddCandidate() {
         CandidateStorage storage = Mockito.mock(CandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n30\nIT\n5\n");
