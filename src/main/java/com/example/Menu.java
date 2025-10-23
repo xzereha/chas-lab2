@@ -29,6 +29,7 @@ public class Menu {
 
     public void run() {
         while (subMenu.showAndHandle()) {
+            // Actual logic is done in the showAndHandle method
         }
     }
 }
