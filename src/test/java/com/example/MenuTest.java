@@ -8,6 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
     @Test
+    void menuConstructor_nullStorage_shouldThrow() {
+        Scanner scanner = new Scanner("");
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(null, scanner));
+        assertEquals("CandidateStorage must not be null", ex.getMessage());
+    }
+
+    @Test
+    void menuConstructor_nullScanner_shouldThrow() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(storage, null));
+        assertEquals("Scanner must not be null", ex.getMessage());
+    }
+
+    @Test
     void addCandidateFlow_invalidName_thenValid_shouldAddCandidate() {
         CandidateStorage repo = Mockito.mock(CandidateStorage.class);
         String input = "1\n \nAnna\n30\nIT\n5\n5\n";

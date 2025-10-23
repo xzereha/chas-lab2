@@ -26,6 +26,13 @@ public class SubMenu {
         this.scanner = scanner;
     }
 
+    /**
+     * Adds a command option to the submenu.
+     * 
+     * @param code    Selection code for the command.
+     * @param command The command to execute.
+     * @return This submenu instance for method chaining.
+     */
     public SubMenu with(String code, Command command) {
         options.put(code, command);
         return this;

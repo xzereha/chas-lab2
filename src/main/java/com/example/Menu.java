@@ -12,13 +12,26 @@ public class Menu {
     private final Scanner scanner;
     private final SubMenu subMenu;
 
+    /**
+     * Constructs a Menu.
+     * 
+     * @param storage The candidate storage.
+     * @param scanner The scanner for user input.
+     */
     public Menu(CandidateStorage storage, Scanner scanner) {
+        if (storage == null)
+            throw new IllegalArgumentException("CandidateStorage must not be null");
+        if (scanner == null)
+            throw new IllegalArgumentException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
         this.subMenu = new SubMenu("Meny", scanner);
         registerCommands();
     }
 
+    /**
+     * Registers all commands to the submenu.
+     */
     private void registerCommands() {
         subMenu.with("1", new AddCandidateCommand(this.storage, scanner))
                 .with("2", new RemoveCandidateCommand(this.storage, scanner))
@@ -27,6 +40,9 @@ public class Menu {
                 .with("5", new ExitCommand());
     }
 
+    /**
+     * Runs the menu loop until exit.
+     */
     public void run() {
         while (subMenu.showAndHandle()) {
             // Actual logic is done in the showAndHandle method
