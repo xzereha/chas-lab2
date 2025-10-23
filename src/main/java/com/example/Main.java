@@ -11,6 +11,5 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu(repository, scanner);
         menu.run();
-        scanner.close();
     }
 }
