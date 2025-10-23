@@ -45,4 +45,18 @@ class FilterByIndustryCommandTest {
         assertFalse(result); // Should return false if input stream ends
         Mockito.verify(storage, Mockito.never()).getAllCandidates();
     }
+
+    @Test
+    void constructor_nullStorage_shouldThrow() {
+        Scanner scanner = new Scanner("");
+        Exception ex = assertThrows(NullPointerException.class, () -> new FilterByIndustryCommand(null, scanner));
+        assertEquals("CandidateStorage must not be null", ex.getMessage());
+    }
+
+    @Test
+    void constructor_nullScanner_shouldThrow() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        Exception ex = assertThrows(NullPointerException.class, () -> new FilterByIndustryCommand(storage, null));
+        assertEquals("Scanner must not be null", ex.getMessage());
+    }
 }

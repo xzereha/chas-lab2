@@ -35,4 +35,18 @@ class ShowCandidatesCommandTest {
         assertTrue(result); // Should succeed even if no candidates
         Mockito.verify(storage).getAllCandidates();
     }
+
+    @Test
+    void constructor_nullStorage_shouldThrow() {
+        Scanner scanner = new Scanner("");
+        Exception ex = assertThrows(NullPointerException.class, () -> new ShowCandidatesCommand(null, scanner));
+        assertEquals("CandidateStorage must not be null", ex.getMessage());
+    }
+
+    @Test
+    void constructor_nullScanner_shouldThrow() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        Exception ex = assertThrows(NullPointerException.class, () -> new ShowCandidatesCommand(storage, null));
+        assertEquals("Scanner must not be null", ex.getMessage());
+    }
 }
