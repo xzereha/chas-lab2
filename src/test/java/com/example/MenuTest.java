@@ -20,4 +20,22 @@ class MenuTest {
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }
+
+    @Test
+    void menuConstructor_validParameters_createsMenu() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        Scanner scanner = new Scanner("");
+        Menu menu = new Menu(storage, scanner);
+        assertNotNull(menu);
+    }
+
+    @Test
+    void menu_run_loopsUntilStreamEnds() {
+        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        // Provide two valid menu choices, then stream ends
+        Scanner scanner = new Scanner("1\n1\n");
+        Menu menu = new Menu(storage, scanner);
+        assertDoesNotThrow(menu::run);
+        // The test passes if no exception is thrown and the loop exits when input ends
+    }
 }

@@ -11,6 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SubMenuTest {
     @Test
+    void showAndHandle_invalidChoice_shouldHandleGracefully() {
+        Command cmd1 = Mockito.mock(Command.class);
+        Mockito.when(cmd1.menuText()).thenReturn("Option 1");
+        Map<String, Command> options = new LinkedHashMap<>();
+        options.put("1", cmd1);
+        Scanner scanner = new Scanner("9\n"); // invalid choice
+        SubMenu submenu = new SubMenu("Header", scanner);
+        options.forEach(submenu::with);
+        boolean result = submenu.showAndHandle();
+        assertTrue(result); // Should return true and not execute any command
+        Mockito.verify(cmd1, Mockito.never()).execute();
+    }
+
+    @Test
     void showAndHandle_validInput_executesCorrectCommand() {
         Command cmd1 = Mockito.mock(Command.class);
         Command cmd2 = Mockito.mock(Command.class);

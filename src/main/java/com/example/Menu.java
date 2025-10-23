@@ -44,8 +44,9 @@ public class Menu {
      * Runs the menu loop until exit.
      */
     public void run() {
-        while (subMenu.showAndHandle()) {
-            // Actual logic is done in the showAndHandle method
+        boolean running = true;
+        while (running) {
+            running = subMenu.showAndHandle();
         }
     }
 }
