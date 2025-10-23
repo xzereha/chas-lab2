@@ -1,52 +1,66 @@
 package com.example;
 
 import org.slf4j.Logger;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import com.example.commands.Command;
+import com.example.commands.AddCandidateCommand;
+import com.example.commands.RemoveCandidateCommand;
+import com.example.commands.ShowCandidatesCommand;
+import com.example.commands.FilterCandidatesCommand;
+import com.example.commands.ExitCommand;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class Menu {
     private static final Logger logger = LoggerFactory.getLogger(Menu.class);
-    private final CandidateRepository repository;
+    private final CandidateStorage storage;
     private final Scanner scanner;
+    private final Map<String, Command> commands = new LinkedHashMap<>();
 
-    public Menu(CandidateRepository repository, Scanner scanner) {
-        this.repository = repository;
+    public Menu(CandidateStorage storage, Scanner scanner) {
+        this.storage = storage;
         this.scanner = scanner;
+        registerCommands();
+    }
+
+    private void registerCommands() {
+        commands.put("1", new AddCandidateCommand(this));
+        commands.put("2", new RemoveCandidateCommand(this));
+        commands.put("3", new ShowCandidatesCommand(this));
+        commands.put("4", new FilterCandidatesCommand(this));
+        commands.put("5", new ExitCommand());
     }
 
     public void run() {
         boolean running = true;
         while (running) {
             System.out.println("\nMeny:");
-            System.out.println("1. Lägg till kandidat");
-            System.out.println("2. Ta bort kandidat");
-            System.out.println("3. Visa kandidater");
-            System.out.println("4. Filtrera kandidater");
-            System.out.println("5. Avsluta");
+            for (Map.Entry<String, Command> entry : commands.entrySet()) {
+                System.out.println(entry.getValue().menuText());
+            }
             System.out.print("Välj ett alternativ: ");
             String choice = safeNextLine();
             if (choice == null)
                 break;
-            switch (choice) {
-                case "1" -> addCandidateFlow();
-                case "2" -> removeCandidateFlow();
-                case "3" -> showCandidatesFlow();
-                case "4" -> filterCandidatesFlow();
-                case "5" -> running = false;
-                default -> System.out.println("Ogiltigt val, försök igen.");
+            Command cmd = commands.get(choice);
+            if (cmd != null) {
+                running = cmd.execute();
+            } else {
+                System.out.println("Ogiltigt val, försök igen.");
             }
         }
     }
 
-    private void removeCandidateFlow() {
+    public void removeCandidateFlow() {
         System.out.print("Ange namn på kandidat att ta bort: ");
         String name = safeNextLine();
         if (name == null || name.trim().isEmpty()) {
             logger.warn("Ogiltigt namn för borttagning via meny: '{}'.", name);
             return;
         }
-        boolean removed = repository.removeCandidate(name);
+        boolean removed = storage.removeCandidate(name);
         if (removed) {
             logger.info("Kandidat borttagen via meny: {}", name);
             System.out.println("Kandidat borttagen.");
@@ -56,7 +70,7 @@ public class Menu {
         }
     }
 
-    private void addCandidateFlow() {
+    public void addCandidateFlow() {
         Optional<String> nameOpt = promptForName();
         if (nameOpt.isEmpty())
             return;
@@ -75,7 +89,7 @@ public class Menu {
         int years = yearsOpt.get();
         try {
             Candidate candidate = new Candidate(name, age, industry, years);
-            repository.addCandidate(candidate);
+            storage.addCandidate(candidate);
             logger.info("Kandidat tillagd via meny: {}", candidate);
             System.out.println("Kandidat tillagd!");
         } catch (IllegalArgumentException e) {
@@ -83,8 +97,8 @@ public class Menu {
         }
     }
 
-    private void showCandidatesFlow() {
-        var candidates = repository.getAllCandidates();
+    public void showCandidatesFlow() {
+        var candidates = storage.getAllCandidates();
         logger.info("Visar {} kandidater", candidates.size());
         if (candidates.isEmpty()) {
             System.out.println("Inga kandidater finns.");
@@ -93,7 +107,7 @@ public class Menu {
         }
     }
 
-    private void filterCandidatesFlow() {
+    public void filterCandidatesFlow() {
         System.out.println("Filtrera på: 1. Bransch 2. Erfarenhet 3. Namn");
         String filterChoice = safeNextLine();
         if (filterChoice == null)
@@ -132,7 +146,7 @@ public class Menu {
         }
         if (filter == null)
             return;
-        java.util.List<Candidate> filtered = filter.filter(repository.getAllCandidates());
+        java.util.List<Candidate> filtered = filter.filter(storage.getAllCandidates());
         logger.info("Filtrering utförd med {} kandidater", filtered.size());
         if (filtered.isEmpty()) {
             System.out.println("Inga kandidater matchar filtret.");

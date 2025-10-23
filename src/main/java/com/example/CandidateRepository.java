@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * Repository for managing Candidate objects in-memory.
  * Provides add, remove, and retrieval operations.
  */
-public class CandidateRepository {
+public class CandidateRepository implements CandidateStorage {
     private static final Logger logger = LoggerFactory.getLogger(CandidateRepository.class);
     private final List<Candidate> candidates = new ArrayList<>();
 
