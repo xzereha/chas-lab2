@@ -1,5 +1,9 @@
 # Kandidathanteringssystem för Rekryterare
 
+## Bakgrund
+
+Detta projektet gjordes som en inlämningsuppgift i Java.
+
 ## Översikt
 
 En CLI-baserad Java-applikation för att hantera kandidater, med stöd för filtrering, sortering, loggning och robust inmatningshantering. Utvecklad enligt SOLID-principer, Command-pattern och testad med JUnit/Mockito. Alla publika klasser och metoder är dokumenterade med JavaDoc.

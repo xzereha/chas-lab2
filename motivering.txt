@@ -1,0 +1,3 @@
+Jag har Användt mig av CommandPatten då det blev mycket menyer och detta bröt snyggt ut varje separat case i sin egen klass.
+För filter använde jag också interfaces så att det går att byte mellan dem, vilket iofs inte används just nu pga command pattern.
+Jag bröt också ut menyn i två klasser, Meny som ansvarar för själva loopen och SubMenu som hanterar valet av kommandon att köra
