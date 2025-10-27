@@ -1,5 +1,6 @@
 package com.example.commands;
 
+import com.example.AlphabeticalNameSorter;
 import com.example.CandidateStorage;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class ShowCandidatesCommand implements Command {
     private final CandidateStorage storage;
     private final Scanner scanner;
+    private final AlphabeticalNameSorter filter;
 
     /**
      * Constructs a ShowCandidatesCommand.
@@ -25,6 +27,7 @@ public class ShowCandidatesCommand implements Command {
             throw new NullPointerException("Scanner must not be null");
         this.storage = storage;
         this.scanner = scanner;
+        this.filter = new AlphabeticalNameSorter();
     }
 
     /**
@@ -38,7 +41,7 @@ public class ShowCandidatesCommand implements Command {
      */
     @Override
     public boolean execute() {
-        var candidates = storage.getAllCandidates();
+        var candidates = filter.filter(storage.getAllCandidates());
         if (candidates.isEmpty()) {
             System.out.println("Inga kandidater finns.");
         } else {
