@@ -62,10 +62,9 @@ java -jar target/Kandidathanteringssystem-1.0-SNAPSHOT.jar
 
 - `src/main/java/com/example/` - Källkod
 - `src/test/java/com/example/` - Tester
-- `.github/` - (tidigare AI-agentinstruktioner, kan tas bort från historik)
 
 ## Exempel på utbyggnad
 
-- Lägg till nytt filter: Implementera `CandidateFilter` och registrera i CLI
+- Lägg till nytt filter: Implementera `CandidateFilter` och registrera i ett kommando
 - Lägg till kommando: Implementera en ny Command-klass och lägg till i Menu
 - Lägg till test: Skapa testklass i `src/test/java/com/example/` och mocka beroenden
