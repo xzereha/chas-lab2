@@ -62,7 +62,6 @@ java -jar target/Kandidathanteringssystem-1.0-SNAPSHOT.jar
 
 - `src/main/java/com/example/` - Källkod
 - `src/test/java/com/example/` - Tester
-- `.github/` - (tidigare AI-agentinstruktioner, kan tas bort från historik)
 
 ## Exempel på utbyggnad
 
