@@ -5,14 +5,14 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
 
 /**
  * Command to remove a candidate by name.
  */
-public class RemoveCandidateCommand implements Command {
+public class RemoveCandidateCommand implements ICommand {
     private static final Logger logger = LoggerFactory.getLogger(RemoveCandidateCommand.class);
-    private final CandidateStorage storage;
+    private final ICandidateStorage storage;
     private final Scanner scanner;
 
     /**
@@ -22,7 +22,7 @@ public class RemoveCandidateCommand implements Command {
      * @param scanner Scanner for user input. Must not be null.
      * @throws NullPointerException if storage or scanner is null
      */
-    public RemoveCandidateCommand(CandidateStorage storage, Scanner scanner) {
+    public RemoveCandidateCommand(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new NullPointerException("CandidateStorage must not be null");
         if (scanner == null)

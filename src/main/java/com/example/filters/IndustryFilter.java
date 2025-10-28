@@ -1,9 +1,11 @@
-package com.example;
+package com.example.filters;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class IndustryFilter implements CandidateFilter {
+import com.example.models.Candidate;
+
+public class IndustryFilter implements ICandidateFilter {
     private final String industry;
 
     public IndustryFilter(String industry) {

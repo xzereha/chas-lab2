@@ -2,13 +2,13 @@ package com.example.commands;
 
 import java.util.Scanner;
 
-import com.example.CandidateStorage;
-import com.example.SubMenu;
+import com.example.ICandidateStorage;
+import com.example.menu.SubMenu;
 
-public class FilterCandidatesCommand implements Command {
+public class FilterCandidatesCommand implements ICommand {
     private final SubMenu subMenu;
 
-    public FilterCandidatesCommand(CandidateStorage storage, Scanner scanner) {
+    public FilterCandidatesCommand(ICandidateStorage storage, Scanner scanner) {
         this.subMenu = new SubMenu("Filtrera kandidater", scanner)
                 .with("1", new FilterByNameCommand(storage, scanner))
                 .with("2", new FilterByExperienceCommand(storage, scanner))

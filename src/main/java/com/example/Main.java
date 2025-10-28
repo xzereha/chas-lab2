@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.Scanner;
 
+import com.example.menu.Menu;
+
 /**
  * Application entrypoint. Delegates menu logic to Menu class.
  */

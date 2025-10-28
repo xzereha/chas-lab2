@@ -1,6 +1,6 @@
-package com.example;
+package com.example.commands;
 
-public interface Command {
+public interface ICommand {
     /**
      * Executes the command. Returns false to exit the menu loop.
      */

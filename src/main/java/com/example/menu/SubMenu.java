@@ -1,6 +1,6 @@
-package com.example;
+package com.example.menu;
 
-import com.example.commands.Command;
+import com.example.commands.ICommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class SubMenu {
     private final String header;
-    private final Map<String, Command> options;
+    private final Map<String, ICommand> options;
     private final Scanner scanner;
 
     /**
@@ -33,7 +33,7 @@ public class SubMenu {
      * @param command The command to execute.
      * @return This submenu instance for method chaining.
      */
-    public SubMenu with(String code, Command command) {
+    public SubMenu with(String code, ICommand command) {
         options.put(code, command);
         return this;
     }
@@ -44,13 +44,13 @@ public class SubMenu {
      */
     public boolean showAndHandle() {
         System.out.println("\n" + header);
-        for (Map.Entry<String, Command> entry : options.entrySet()) {
+        for (Map.Entry<String, ICommand> entry : options.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().menuText());
         }
         System.out.print("Välj ett alternativ: ");
         try {
             String choice = scanner.nextLine();
-            Command cmd = options.get(choice);
+            ICommand cmd = options.get(choice);
             if (cmd != null) {
                 return cmd.execute();
             } else {

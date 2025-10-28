@@ -2,7 +2,9 @@ package com.example;
 
 import java.util.List;
 
-public interface CandidateStorage {
+import com.example.models.Candidate;
+
+public interface ICandidateStorage {
     /**
      * Adds a candidate to the storage.
      */

@@ -3,14 +3,14 @@ package com.example.commands;
 import java.util.Optional;
 import java.util.Scanner;
 
-import com.example.Candidate;
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
+import com.example.models.Candidate;
 
 /**
  * Command to add a candidate.
  */
-public class AddCandidateCommand implements Command {
-    private final CandidateStorage storage;
+public class AddCandidateCommand implements ICommand {
+    private final ICandidateStorage storage;
     private final Scanner scanner;
 
     /**
@@ -20,7 +20,7 @@ public class AddCandidateCommand implements Command {
      * @param scanner Scanner for user input. Must not be null.
      * @throws NullPointerException if storage or scanner is null
      */
-    public AddCandidateCommand(CandidateStorage storage, Scanner scanner) {
+    public AddCandidateCommand(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new NullPointerException("CandidateStorage must not be null");
         if (scanner == null)

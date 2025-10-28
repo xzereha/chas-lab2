@@ -3,7 +3,7 @@ package com.example.commands;
 /**
  * Command to exit the menu loop.
  */
-public class ExitCommand implements Command {
+public class ExitCommand implements ICommand {
     /**
      * Executes the exit command.
      * 

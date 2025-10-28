@@ -1,6 +1,9 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
+
+import com.example.models.Candidate;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 

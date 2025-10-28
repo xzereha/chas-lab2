@@ -1,6 +1,9 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
+
+import com.example.filters.NameFilter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NameFilterTest {

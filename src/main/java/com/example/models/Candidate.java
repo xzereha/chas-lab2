@@ -1,4 +1,4 @@
-package com.example;
+package com.example.models;
 
 /**
  * Data model for a candidate in the recruitment system.

@@ -1,6 +1,8 @@
 package com.example;
 
-import com.example.commands.Command;
+import com.example.commands.ICommand;
+import com.example.menu.SubMenu;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.LinkedHashMap;
@@ -12,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class SubMenuTest {
     @Test
     void showAndHandle_invalidChoice_shouldHandleGracefully() {
-        Command cmd1 = Mockito.mock(Command.class);
+        ICommand cmd1 = Mockito.mock(ICommand.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
-        Map<String, Command> options = new LinkedHashMap<>();
+        Map<String, ICommand> options = new LinkedHashMap<>();
         options.put("1", cmd1);
         Scanner scanner = new Scanner("9\n"); // invalid choice
         SubMenu submenu = new SubMenu("Header", scanner);
@@ -26,13 +28,13 @@ class SubMenuTest {
 
     @Test
     void showAndHandle_validInput_executesCorrectCommand() {
-        Command cmd1 = Mockito.mock(Command.class);
-        Command cmd2 = Mockito.mock(Command.class);
+        ICommand cmd1 = Mockito.mock(ICommand.class);
+        ICommand cmd2 = Mockito.mock(ICommand.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
         Mockito.when(cmd2.menuText()).thenReturn("Option 2");
         Mockito.when(cmd1.execute()).thenReturn(true);
         Mockito.when(cmd2.execute()).thenReturn(true);
-        Map<String, Command> options = new LinkedHashMap<>();
+        Map<String, ICommand> options = new LinkedHashMap<>();
         options.put("1", cmd1);
         options.put("2", cmd2);
         Scanner scanner = new Scanner("2\n");
@@ -46,9 +48,9 @@ class SubMenuTest {
 
     @Test
     void showAndHandle_streamEnds_exitsGracefully() {
-        Command cmd1 = Mockito.mock(Command.class);
+        ICommand cmd1 = Mockito.mock(ICommand.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
-        Map<String, Command> options = new LinkedHashMap<>();
+        Map<String, ICommand> options = new LinkedHashMap<>();
         options.put("1", cmd1);
         Scanner scanner = new Scanner(""); // No input
         SubMenu submenu = new SubMenu("Header", scanner);
@@ -60,10 +62,10 @@ class SubMenuTest {
 
     @Test
     void showAndHandle_commandReturnsFalse_exits() {
-        Command cmd1 = Mockito.mock(Command.class);
+        ICommand cmd1 = Mockito.mock(ICommand.class);
         Mockito.when(cmd1.menuText()).thenReturn("Option 1");
         Mockito.when(cmd1.execute()).thenReturn(false);
-        Map<String, Command> options = new LinkedHashMap<>();
+        Map<String, ICommand> options = new LinkedHashMap<>();
         options.put("1", cmd1);
         Scanner scanner = new Scanner("1\n");
         SubMenu submenu = new SubMenu("Header", scanner);

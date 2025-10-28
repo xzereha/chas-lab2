@@ -3,14 +3,14 @@ package com.example.commands;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import com.example.CandidateStorage;
-import com.example.NameFilter;
+import com.example.ICandidateStorage;
+import com.example.filters.NameFilter;
 
 /**
  * Command to filter candidates by name.
  */
-public class FilterByNameCommand implements Command {
-    private final CandidateStorage storage;
+public class FilterByNameCommand implements ICommand {
+    private final ICandidateStorage storage;
     private final Scanner scanner;
 
     /**
@@ -21,7 +21,7 @@ public class FilterByNameCommand implements Command {
      * @param scanner Scanner for user input. Must not be null.
      * @throws NullPointerException if storage or scanner is null
      */
-    public FilterByNameCommand(CandidateStorage storage, Scanner scanner) {
+    public FilterByNameCommand(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new NullPointerException("CandidateStorage must not be null");
         if (scanner == null)

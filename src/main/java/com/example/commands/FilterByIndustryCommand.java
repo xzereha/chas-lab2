@@ -3,14 +3,14 @@ package com.example.commands;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import com.example.CandidateStorage;
-import com.example.IndustryFilter;
+import com.example.ICandidateStorage;
+import com.example.filters.IndustryFilter;
 
 /**
  * Command to filter candidates by industry.
  */
-public class FilterByIndustryCommand implements Command {
-    private final CandidateStorage storage;
+public class FilterByIndustryCommand implements ICommand {
+    private final ICandidateStorage storage;
     private final Scanner scanner;
 
     /**
@@ -21,7 +21,7 @@ public class FilterByIndustryCommand implements Command {
      * @param scanner Scanner for user input. Must not be null.
      * @throws NullPointerException if storage or scanner is null
      */
-    public FilterByIndustryCommand(CandidateStorage storage, Scanner scanner) {
+    public FilterByIndustryCommand(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new NullPointerException("CandidateStorage must not be null");
         if (scanner == null)

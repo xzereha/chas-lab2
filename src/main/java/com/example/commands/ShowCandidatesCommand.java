@@ -1,14 +1,14 @@
 package com.example.commands;
 
 import com.example.AlphabeticalNameSorter;
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
 import java.util.Scanner;
 
 /**
  * Command to display all candidates.
  */
-public class ShowCandidatesCommand implements Command {
-    private final CandidateStorage storage;
+public class ShowCandidatesCommand implements ICommand {
+    private final ICandidateStorage storage;
     private final Scanner scanner;
     private final AlphabeticalNameSorter filter;
 
@@ -20,7 +20,7 @@ public class ShowCandidatesCommand implements Command {
      * @param scanner Scanner for user input. Must not be null.
      * @throws NullPointerException if storage or scanner is null
      */
-    public ShowCandidatesCommand(CandidateStorage storage, Scanner scanner) {
+    public ShowCandidatesCommand(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new NullPointerException("CandidateStorage must not be null");
         if (scanner == null)

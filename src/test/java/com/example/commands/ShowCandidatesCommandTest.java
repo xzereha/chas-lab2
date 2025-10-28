@@ -1,7 +1,8 @@
 package com.example.commands;
 
-import com.example.Candidate;
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
+import com.example.models.Candidate;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShowCandidatesCommandTest {
     @Test
     void execute_candidatesExist_showsCandidates() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         List<Candidate> candidates = Arrays.asList(
                 new Candidate("Anna", 30, "IT", 5),
                 new Candidate("Bo", 40, "Ekonomi", 10));
@@ -27,7 +28,7 @@ class ShowCandidatesCommandTest {
 
     @Test
     void execute_streamEnds_returnsTrue() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner(""); // No input needed
         ShowCandidatesCommand cmd = new ShowCandidatesCommand(storage, scanner);
@@ -45,7 +46,7 @@ class ShowCandidatesCommandTest {
 
     @Test
     void constructor_nullScanner_throwsException() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new ShowCandidatesCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }

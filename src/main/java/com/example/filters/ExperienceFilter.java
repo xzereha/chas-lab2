@@ -1,9 +1,11 @@
-package com.example;
+package com.example.filters;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExperienceFilter implements CandidateFilter {
+import com.example.models.Candidate;
+
+public class ExperienceFilter implements ICandidateFilter {
     private final int minYears;
 
     public ExperienceFilter(int minYears) {

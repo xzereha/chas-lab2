@@ -1,6 +1,6 @@
 package com.example.commands;
 
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RemoveCandidateCommandTest {
     @Test
     void execute_validName_removesCandidate() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Scanner scanner = new Scanner("Anna\n");
         RemoveCandidateCommand cmd = new RemoveCandidateCommand(storage, scanner);
         boolean result = cmd.execute();
@@ -20,7 +20,7 @@ class RemoveCandidateCommandTest {
 
     @Test
     void execute_blankName_repomptAndRemoveCandidate() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Mockito.when(storage.removeCandidate("Anna")).thenReturn(true);
         Scanner scanner = new Scanner("\nAnna\n");
         RemoveCandidateCommand cmd = new RemoveCandidateCommand(storage, scanner);
@@ -31,7 +31,7 @@ class RemoveCandidateCommandTest {
 
     @Test
     void execute_streamEnds_returnsFalse() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Scanner scanner = new Scanner(""); // No input
         RemoveCandidateCommand cmd = new RemoveCandidateCommand(storage, scanner);
         boolean result = cmd.execute();
@@ -48,7 +48,7 @@ class RemoveCandidateCommandTest {
 
     @Test
     void constructor_nullScanner_throwsException() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new RemoveCandidateCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }

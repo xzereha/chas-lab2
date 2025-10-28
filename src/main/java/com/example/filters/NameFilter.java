@@ -1,11 +1,13 @@
-package com.example;
+package com.example.filters;
 
 import java.util.List;
+
+import com.example.models.Candidate;
 
 /**
  * Filters candidates by name (case-insensitive, trimmed).
  */
-public class NameFilter implements CandidateFilter {
+public class NameFilter implements ICandidateFilter {
     private final String name;
 
     public NameFilter(String name) {

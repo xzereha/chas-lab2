@@ -1,5 +1,6 @@
-package com.example;
+package com.example.menu;
 
+import com.example.ICandidateStorage;
 import com.example.commands.AddCandidateCommand;
 import com.example.commands.RemoveCandidateCommand;
 import com.example.commands.ShowCandidatesCommand;
@@ -8,7 +9,7 @@ import com.example.commands.ExitCommand;
 import java.util.Scanner;
 
 public class Menu {
-    private final CandidateStorage storage;
+    private final ICandidateStorage storage;
     private final Scanner scanner;
     private final SubMenu subMenu;
 
@@ -18,7 +19,7 @@ public class Menu {
      * @param storage The candidate storage.
      * @param scanner The scanner for user input.
      */
-    public Menu(CandidateStorage storage, Scanner scanner) {
+    public Menu(ICandidateStorage storage, Scanner scanner) {
         if (storage == null)
             throw new IllegalArgumentException("CandidateStorage must not be null");
         if (scanner == null)

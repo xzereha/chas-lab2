@@ -7,11 +7,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.models.Candidate;
+
 /**
  * Repository for managing Candidate objects in-memory.
  * Provides add, remove, and retrieval operations.
  */
-public class CandidateRepository implements CandidateStorage {
+public class CandidateRepository implements ICandidateStorage {
     private static final Logger logger = LoggerFactory.getLogger(CandidateRepository.class);
     private final List<Candidate> candidates = new ArrayList<>();
 

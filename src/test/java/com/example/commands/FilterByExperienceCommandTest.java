@@ -1,7 +1,8 @@
 package com.example.commands;
 
-import com.example.Candidate;
-import com.example.CandidateStorage;
+import com.example.ICandidateStorage;
+import com.example.models.Candidate;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FilterByExperienceCommandTest {
     @Test
     void execute_validExperience_filtersCandidates() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         List<Candidate> candidates = Arrays.asList(
                 new Candidate("Anna", 30, "IT", 5),
                 new Candidate("Bo", 40, "Ekonomi", 10));
@@ -27,7 +28,7 @@ class FilterByExperienceCommandTest {
 
     @Test
     void execute_negativeExperience_repomptAndFilterCandidates() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner("-1\n5\n");
         FilterByExperienceCommand cmd = new FilterByExperienceCommand(storage, scanner);
@@ -38,7 +39,7 @@ class FilterByExperienceCommandTest {
 
     @Test
     void execute_streamEnds_returnsFalse() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Scanner scanner = new Scanner(""); // No input
         FilterByExperienceCommand cmd = new FilterByExperienceCommand(storage, scanner);
         boolean result = cmd.execute();
@@ -48,7 +49,7 @@ class FilterByExperienceCommandTest {
 
     @Test
     void execute_nonIntegerInput_repomptAndFilterCandidates() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Mockito.when(storage.getAllCandidates()).thenReturn(java.util.Collections.emptyList());
         Scanner scanner = new Scanner("abc\n10\n");
         FilterByExperienceCommand cmd = new FilterByExperienceCommand(storage, scanner);
@@ -66,7 +67,7 @@ class FilterByExperienceCommandTest {
 
     @Test
     void constructor_nullScanner_throwsException() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Exception ex = assertThrows(NullPointerException.class, () -> new FilterByExperienceCommand(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }

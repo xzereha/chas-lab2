@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Scanner;
 
 import org.mockito.Mockito;
+
+import com.example.menu.Menu;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
@@ -16,14 +19,14 @@ class MenuTest {
 
     @Test
     void menuConstructor_nullScanner_throwsException() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Exception ex = assertThrows(IllegalArgumentException.class, () -> new Menu(storage, null));
         assertEquals("Scanner must not be null", ex.getMessage());
     }
 
     @Test
     void menuConstructor_validParameters_createsMenu() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         Scanner scanner = new Scanner("");
         Menu menu = new Menu(storage, scanner);
         assertNotNull(menu);
@@ -31,7 +34,7 @@ class MenuTest {
 
     @Test
     void menu_run_loopsUntilStreamEnds() {
-        CandidateStorage storage = Mockito.mock(CandidateStorage.class);
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         // Provide two valid menu choices, then stream ends
         Scanner scanner = new Scanner("1\n1\n");
         Menu menu = new Menu(storage, scanner);
