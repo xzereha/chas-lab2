@@ -43,7 +43,7 @@ function_state_expected
 
 Detta fungerade felfritt.
 
-- Jag använde även en alternativ prompt för testning istället för den ovanstående, för att se hur mycket prompten påverkade resultatet.
+- Jag provade även en alternativ prompt för testning istället för den ovanstående, för att se hur mycket prompten påverkade resultatet.
 
 ```txt
 Generate test cases for my submenu
