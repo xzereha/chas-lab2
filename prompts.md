@@ -7,7 +7,7 @@ Dessas följde vagt beskrivningen men inte särskillt snyggt, hade bland annat a
 
 Mitt huvudsakliga problem med detta var att main var kaos så jag ville fixa det direkt..
 
-- Promptat AI för att snygga till tidigare output
+- Promptat AI för att snygga till tidigare output, samt att skriva koden lite bättre. Den tidigare genererade koden gjorde massa antagenden om sin input som jag inte ville ha.
 
 ```txt
 More steps:
