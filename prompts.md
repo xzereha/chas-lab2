@@ -2,8 +2,10 @@
 
 - Promptade AI att generera start koden genom att ge den bakgrundsbeskrivningen.
 
-Den generarade en main, Candidat och CandidatRepository.
-Dessas följde vagt beskrivningen men inte särskillt snyggt.
+Den generarade en main, Candidat och CandidatRepository och basic filter.
+Dessas följde vagt beskrivningen men inte särskillt snyggt, hade bland annat all meny kod och diverse hjälp logik i main.
+
+Mitt huvudsakliga problem med detta var att main var kaos så jag ville fixa det direkt..
 
 - Promptat AI för att snygga till tidigare output
 
@@ -40,3 +42,5 @@ function_state_expected
 ```
 
 Detta fungerade felfritt.
+
+Min totala erfarenhet av LLM användningen är att den börjar väldigt slarvigt och rörigt men ju mer kontext den får ju bättre blir resultatet då den lär sig vilken "stil" man vill att projektet skall ha.
