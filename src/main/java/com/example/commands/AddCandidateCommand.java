@@ -49,9 +49,18 @@ public class AddCandidateCommand implements ICommand {
         Optional<String> industryOpt = promptForIndustry();
         if (industryOpt.isEmpty())
             return false;
-        Optional<Integer> yearsOpt = promptForExperience();
-        if (yearsOpt.isEmpty())
-            return false;
+        Optional<Integer> yearsOpt = Optional.empty();
+        while (true) {
+            yearsOpt = promptForExperience();
+            if (yearsOpt.isEmpty())
+                return false;
+            if (yearsOpt.get() > ageOpt.get()) {
+                System.out.println("Erfarenhet kan inte vara större än ålder. Försök igen.");
+                continue;
+            } else {
+                break;
+            }
+        }
 
         Candidate candidate = new Candidate(nameOpt.get(), ageOpt.get(), industryOpt.get(), yearsOpt.get());
         storage.addCandidate(candidate);

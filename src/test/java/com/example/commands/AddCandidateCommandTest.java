@@ -9,6 +9,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddCandidateCommandTest {
     @Test
+    void execute_experienceGreaterThanAge_streamEnds_noCandidateAdded() {
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
+        // Name, age, industry, experience > age (should reprompt), then stream ends
+        Scanner scanner = new Scanner("Anna\n30\nIT\n40\n");
+        AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
+        boolean result = cmd.execute();
+        assertFalse(result); // Should return false since stream ends before valid experience
+        Mockito.verify(storage, Mockito.never()).addCandidate(Mockito.any());
+    }
+
+    @Test
+    void execute_experienceGreaterThanAge_repomptAndAddCandidate() {
+        ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
+        // Name, age, industry, experience > age (should reprompt), then valid
+        // experience
+        Scanner scanner = new Scanner("Anna\n30\nIT\n40\n5\n");
+        AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
+        boolean result = cmd.execute();
+        assertTrue(result); // Should eventually succeed after reprompt
+        Mockito.verify(storage).addCandidate(Mockito.argThat(c -> c.getYearsOfExperience() == 5 && c.getAge() == 30));
+    }
+
+    @Test
     void execute_nonIntegerExperience_repomptAndAddCandidate() {
         ICandidateStorage storage = Mockito.mock(ICandidateStorage.class);
         // Name, age, industry provided, then non-integer for experience, then valid
@@ -79,6 +102,7 @@ class AddCandidateCommandTest {
         Scanner scanner = new Scanner("Anna\n30\n\nIT\n5\n");
         AddCandidateCommand cmd = new AddCandidateCommand(storage, scanner);
         boolean result = cmd.execute();
+
         assertTrue(result); // Should eventually succeed after reprompt
         Mockito.verify(storage).addCandidate(Mockito.argThat(c -> c.getIndustry().equals("IT")));
     }
