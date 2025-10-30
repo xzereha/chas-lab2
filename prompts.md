@@ -35,12 +35,21 @@ AIn spottade ut en bunt test cases. Dessa fungerade som förväntat och behövde
 
 - Bad AI formatera om namnet på tester så att dem var enhetliga
 
-```test
+```txt
 Refactor all tests in the project to use the naming convention
 
 function_state_expected
 ```
 
 Detta fungerade felfritt.
+
+- Jag använde även en alternativ prompt för testning istället för den ovanstående, för att se hur mycket prompten påverkade resultatet.
+
+```txt
+Generate test cases for my submenu
+```
+
+Detta generarade korrekta tester fast med mycket färre tester av edgecases, den testade endast för korrekt input med ett kommando, inkorrekt input med ett kommando, och end of stream.
+Så den hade exempelvis inga tester för vad som händer ifall där inte finns några registrerade kommandon, eller att den faktisk gör rätt kommando ifall där finns flera registrerade.
 
 Min totala erfarenhet av LLM användningen är att den börjar väldigt slarvigt och rörigt men ju mer kontext den får ju bättre blir resultatet då den lär sig vilken "stil" man vill att projektet skall ha.
